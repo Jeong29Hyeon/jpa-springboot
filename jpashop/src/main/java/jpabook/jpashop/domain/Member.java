@@ -8,8 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter @Setter
@@ -19,9 +24,10 @@ public class Member {
     private Long id;
 
     private String name;
+
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member",fetch = LAZY)
     private List<Order> orders = new ArrayList<>();
 }
